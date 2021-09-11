@@ -6,7 +6,7 @@ public class SwordMechanics : MonoBehaviour
 {
     public Transform attackPoint;
     public float attackRange = 0.5f;
-
+    public LayerMask enemyLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,12 @@ public class SwordMechanics : MonoBehaviour
 
     void NormalSwing()
     {
-        
+       Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider enemies in colliders)
+        {
+            Debug.Log("We hit" + enemies.name);
+        }
     }
 
     void Stab()
@@ -37,5 +42,10 @@ public class SwordMechanics : MonoBehaviour
     void JumpAttack()
     {
 
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
