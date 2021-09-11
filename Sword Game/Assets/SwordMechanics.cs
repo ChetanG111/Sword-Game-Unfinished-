@@ -45,7 +45,11 @@ public class SwordMechanics : MonoBehaviour
     }
 
     private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    {if(attackPoint!= null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
+
+        
     }
 }
