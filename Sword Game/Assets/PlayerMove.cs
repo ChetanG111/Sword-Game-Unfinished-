@@ -15,13 +15,10 @@ public class PlayerMove : MonoBehaviour
     
 
     public LayerMask Ground;
+    [HideInInspector]
+   public bool isGrounded;
 
-    bool isGrounded;
-
-    void Start()
-    {
-        
-    }
+  
 
     void Update()
     {

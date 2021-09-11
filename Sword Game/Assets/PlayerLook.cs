@@ -13,7 +13,7 @@ public class PlayerLook : MonoBehaviour
     float y = 0;
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
