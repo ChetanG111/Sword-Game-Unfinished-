@@ -49,7 +49,7 @@ public class SwordMechanics : MonoBehaviour
     void NormalSwing()
     {
         animator.SetTrigger("Attack");
-       Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+               Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider enemies in colliders)
         {
@@ -71,6 +71,7 @@ public class SwordMechanics : MonoBehaviour
 
     void Stab()
     {
+       
         Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider enemies in colliders)
