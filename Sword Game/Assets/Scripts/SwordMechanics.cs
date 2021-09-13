@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class SwordMechanics : MonoBehaviour
 {
-   
+
+
+    public float fireRate;
+    float nextTimetifire = 0f;
     public int damage,moveDamage;
     public Transform attackPoint;
     public float attackRange = 0.5f;
+    bool broke;
     public int durability = 1000;
     public Animator animator;
     public LayerMask enemyLayer;
@@ -22,32 +26,23 @@ public class SwordMechanics : MonoBehaviour
     {
         
         //Does a normal swing
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.time >= nextTimetifire && !broke)
         {
+            nextTimetifire = Time.time + 1f / fireRate;
             NormalSwing();
         }
 
-        
-        //does with more force
-        if (Input.GetMouseButtonDown(0) && !GetComponent<PlayerMove>().isGrounded)
-        {
-            ForceSwing();
-        }
-
-        //Stabs the enemy
-        if(Input.GetKey(KeyCode.LeftShift)&& Input.GetMouseButtonDown(0))
-        {
-            Stab();
-        }
-
-        if(durability <= 0)
+        if(durability <= 0 && !broke)
         {
             Debug.Log("Your Sword Broke");
+            broke = true;
+
         }
     }
 
     void NormalSwing()
     {
+       
         animator.SetTrigger("Attack");
                Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
@@ -56,6 +51,7 @@ public class SwordMechanics : MonoBehaviour
             enemies.GetComponent<EnemyHealth>().TakeDamage(damage);
             durability -= 10;
         }
+        Audiomanager.instance.Play("SwordSwing");
     }
 
     void ForceSwing()
