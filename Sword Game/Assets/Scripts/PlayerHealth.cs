@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth;
     int currentHealth;
     [SerializeField]private Slider healthBar;
+    public int resistance;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +23,11 @@ public class PlayerHealth : MonoBehaviour
         healthBar.value = currentHealth;
     }
 
-    void TakeDamge(int amount)
+  public  void TakeDamge(int amount)
     {
+        Mathf.Clamp(amount, 0, int.MaxValue);
+        amount -= resistance;
+        Debug.Log(amount);
         currentHealth -= amount;
         if(currentHealth <= 0)
         {
